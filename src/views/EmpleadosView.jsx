@@ -11,7 +11,7 @@ const EmpleadosView = () => {
     { name: "empleado_apellido", label: "Apellidos" },
     { name: "empleado_fnacimiento", label: "F.Nacimiento" },
     { name: "empleado_gerencia", label: "Gerencia" },
-    //{ name: "empleado_avatar", label: "Avatar" },
+    { name: "empleado_avatar", label: "Avatar" },
   ];
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const EmpleadosView = () => {
   //Renderizado de listas con map
   return (
     <div>
+      <h3 className="text-lg font-semibold">Empleados</h3>
       {/*empleados && empleados.length > 0 ? (
         empleados.map((emp) => (
           <div key={emp.id}>

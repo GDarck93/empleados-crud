@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Input from "../components/Input";
+import { createEmpleado } from "../services/empleadoService";
 
 //Objeto empleado
 const EmpleadoCreateView = () => {
@@ -8,9 +9,22 @@ const EmpleadoCreateView = () => {
         empleado_apellido: "",
         empleado_fnacimiento: "",
         empleado_gerencia: "",
-        empleado_avatar: null,
+        //empleado_avatar: null,
     });
 
+    //Enviar el formulario
+    const handleSubmit = async (event) => {
+        event.preventDefault();//Evita que se recargue la pagina
+        try {
+            await createEmpleado(empleado);
+            alert("Empleado creado correctamente");
+        } catch (error) {
+            console.log(error);
+            alert("Error al crear el empleado");
+        }
+    }
+
+    //Inputs
     const handleInput = (event) => {
         console.log(event.target.value);
         setEmpleado({
@@ -35,6 +49,8 @@ const EmpleadoCreateView = () => {
             setAvatarPreview(null);
         }
     };
+
+    //Array de inputs
     const InputInfo = [
         { name: "empleado_nombre", label: "Nombres", type: "text" },
         { name: "empleado_apellido", label: "Apellidos", type: "text" },
@@ -45,7 +61,7 @@ const EmpleadoCreateView = () => {
     return (
         <div>
             <h1 className="font-bold text-xl bg-gray-200 p-4 text-center">Crear Empleado</h1>
-            <form className="max-w-md mx-auto my-4 p-4 border border-gray-300 rounded">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto my-4 p-4 border border-gray-300 rounded">
                 {InputInfo.map((input, index) => (
                     <Input
                         key={index}
@@ -56,6 +72,7 @@ const EmpleadoCreateView = () => {
                         handleInput={input.name === "empleado_avatar" ? handleAvatarChange : handleInput}
                     />
                 ))}
+
                 {avatarPreview && (
                     <div className="mb-3 p-2 flex flex-col items-center">
                         <label className="block mb-1 font-semibold text-gray-700">Vista Previa:</label>
@@ -68,6 +85,7 @@ const EmpleadoCreateView = () => {
                         </div>
                     </div>
                 )}
+
                 <div className="flex justify-end">
                     <button
                         type="submit"

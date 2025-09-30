@@ -7,7 +7,7 @@ const Input = (props) => {
         return (
             <div className="mb-2">
                 <label
-                    className="block mb-2 font-semibold text-gray-700"
+                    className="block mb-1.5 font-semibold text-gray-700"
                     htmlFor={name}
                 >
                     {label}
@@ -33,7 +33,7 @@ const Input = (props) => {
     return (
         <div className="mb-2">
             <label
-                className="block mb-2 font-semibold text-gray-700"
+                className="block mb-1.5 font-semibold text-gray-700"
                 htmlFor={name}
             >
                 {label}
