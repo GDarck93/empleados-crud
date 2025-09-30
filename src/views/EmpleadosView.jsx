@@ -30,7 +30,7 @@ const EmpleadosView = () => {
   //Renderizado de listas con map
   return (
     <div>
-      {empleados && empleados.length > 0 ? (
+      {/*empleados && empleados.length > 0 ? (
         empleados.map((emp) => (
           <div key={emp.id}>
             <p>
@@ -50,7 +50,7 @@ const EmpleadosView = () => {
         ))
       ) : (
         <p>No hay empleados registrados</p>
-      )}
+      )*/}
       <TableData data={empleados} headers={headers} />
     </div>
   );
