@@ -57,6 +57,7 @@ const EmpleadoCreateView = () => {
                     <img src={avatarPreview} alt="Avatar preview" className="mx-auto my-2 rounded-full w-24 h-24 object-cover border" />
                 )}
                 <button type="submit" className="bg-blue-500 text-white p-2 rounded">Crear</button>
+                <h1>Cambio</h1>
             </form>
         </div>
     )
