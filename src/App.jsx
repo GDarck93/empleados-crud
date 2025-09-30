@@ -12,7 +12,7 @@ const App = () => {
       <h1 className="text-center text-2xl font-bold my-4">Empleados CRUD</h1>
       <Routes>
         <Route path="/" element={<EmpleadosView />} />
-        <Route path="/create" element={<EmpleadoCreateView />} />
+        <Route path="/crear" element={<EmpleadoCreateView />} />
       </Routes>
     </BrowserRouter>
   )

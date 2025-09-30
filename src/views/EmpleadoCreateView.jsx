@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "../components/Input";
 
 //Objeto empleado
 const EmpleadoCreateView = () => {
@@ -34,30 +35,47 @@ const EmpleadoCreateView = () => {
             setAvatarPreview(null);
         }
     };
-
+    const InputInfo = [
+        { name: "empleado_nombre", label: "Nombres", type: "text" },
+        { name: "empleado_apellido", label: "Apellidos", type: "text" },
+        { name: "empleado_fnacimiento", label: "F.Nacimiento", type: "date" },
+        { name: "empleado_gerencia", label: "Gerencia", type: "text" },
+        { name: "empleado_avatar", label: "Avatar", type: "file" },
+    ];
     return (
         <div>
             <h1 className="font-bold text-xl bg-gray-200 p-4 text-center">Crear Empleado</h1>
-            <form action="" className="flex flex-col gap-4 my-4 bg-white p-4 border border-slate-300 max-w-md mx-auto">
-                <input type="text" placeholder="Nombres" value={empleado.empleado_nombre} onChange={handleInput} name="empleado_nombre" className="border border-slate-300 p-2 rounded" />
-                <input type="text" placeholder="Apellidos" value={empleado.empleado_apellido} onChange={handleInput} name="empleado_apellido" className="border border-slate-300 p-2 rounded" />
-                <input type="date" placeholder="F.Nacimiento" value={empleado.empleado_fnacimiento} onChange={handleInput} name="empleado_fnacimiento" className="border border-slate-300 p-2 rounded" />
-                <input type="text" placeholder="Gerencia" value={empleado.empleado_gerencia} onChange={handleInput} name="empleado_gerencia" className="border border-slate-300 p-2 rounded" />
-                <label htmlFor="avatar" className="cursor-pointer bg-gray-100 border border-slate-300 p-2 rounded text-center hover:bg-gray-200 transition" value={empleado.empleado_avatar} onChange={handleInput}>
-                    {avatar ? avatar.name : "Selecciona una imagen de avatar"}
-                    <input
-                        id="avatar"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleAvatarChange}
-                        className="hidden"
+            <form className="max-w-md mx-auto my-4 p-4 border border-gray-300 rounded">
+                {InputInfo.map((input, index) => (
+                    <Input
+                        key={index}
+                        value={empleado}
+                        name={input.name}
+                        label={input.label}
+                        type={input.type}
+                        handleInput={input.name === "empleado_avatar" ? handleAvatarChange : handleInput}
                     />
-                </label>
+                ))}
                 {avatarPreview && (
-                    <img src={avatarPreview} alt="Avatar preview" className="mx-auto my-2 rounded-full w-24 h-24 object-cover border" />
+                    <div className="mb-3 p-2 flex flex-col items-center">
+                        <label className="block mb-1 font-semibold text-gray-700">Vista Previa:</label>
+                        <div className="w-32 h-32 rounded-full border-4 border-blue-200 shadow-lg bg-white flex items-center justify-center overflow-hidden">
+                            <img
+                                src={avatarPreview}
+                                alt="Vista Previa"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    </div>
                 )}
-                <button type="submit" className="bg-blue-500 text-white p-2 rounded">Crear</button>
-                
+                <div className="flex justify-end">
+                    <button
+                        type="submit"
+                        className="bg-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-md hover:bg-blue-600 hover:scale-105 transition-all duration-200"
+                    >
+                        Guardar
+                    </button>
+                </div>
             </form>
         </div>
     )
