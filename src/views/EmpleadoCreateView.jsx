@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Input from "../components/Input";
 import { createEmpleado } from "../services/empleadoService";
+import Swal from "sweetalert2";
 
 //Objeto empleado
 const EmpleadoCreateView = () => {
@@ -17,10 +18,24 @@ const EmpleadoCreateView = () => {
         event.preventDefault();//Evita que se recargue la pagina
         try {
             await createEmpleado(empleado);
-            alert("Empleado creado correctamente");
+            //alert("Empleado creado correctamente");
+            Swal.fire({
+                icon: 'success',
+                title: 'Empleado registrado correctamente',
+                showConfirmButton: false,
+                timer: 1500,
+                theme: 'white'
+            });
+            
         } catch (error) {
             console.log(error);
-            alert("Error al crear el empleado");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al registrar el empleado',
+                text: error.message,
+                confirmButtonText: 'Cerrar',
+                theme: 'dark'
+            });
         }
     }
 

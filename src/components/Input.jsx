@@ -39,6 +39,7 @@ const Input = (props) => {
                 {label}
             </label>
             <input
+                id='{name}'
                 type={type}
                 placeholder={`Ingrese ${label}`}
                 name={name}
