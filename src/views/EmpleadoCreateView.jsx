@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "../components/Input";
 import { createEmpleado } from "../services/empleadoService";
 import Swal from "sweetalert2";
+import { Navigate, useNavigate } from "react-router-dom";
 
 //Objeto empleado
 const EmpleadoCreateView = () => {
@@ -12,6 +13,8 @@ const EmpleadoCreateView = () => {
         empleado_gerencia: "",
         //empleado_avatar: null,
     });
+
+    let navigate = useNavigate();
 
     //Enviar el formulario
     const handleSubmit = async (event) => {
@@ -26,7 +29,7 @@ const EmpleadoCreateView = () => {
                 timer: 1500,
                 theme: 'white'
             });
-            
+
         } catch (error) {
             console.log(error);
             Swal.fire({
@@ -37,6 +40,7 @@ const EmpleadoCreateView = () => {
                 theme: 'dark'
             });
         }
+        navigate("/");
     }
 
     //Inputs
