@@ -30,7 +30,7 @@ const EmpleadosView = () => {
   //Renderizado de listas con map
   return (
     <div>
-      <h3 className="text-lg font-semibold">Empleados</h3>
+      <h1 className="font-bold text-xl bg-gray-200 p-4 text-center">Empleados</h1>
       {/*empleados && empleados.length > 0 ? (
         empleados.map((emp) => (
           <div key={emp.id}>

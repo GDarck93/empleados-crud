@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import EmpleadosView from "./views/EmpleadosView";
 import EmpleadoCreateView from "./views/EmpleadoCreateView";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
@@ -9,7 +10,7 @@ const App = () => {
     //  <EmpleadosView />
     //</div>
     <BrowserRouter>
-      <h1 className="text-center text-2xl font-bold my-4">Empleados CRUD</h1>
+      <Navbar />
       <Routes>
         <Route path="/" element={<EmpleadosView />} />
         <Route path="/crear" element={<EmpleadoCreateView />} />
