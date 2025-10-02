@@ -32,7 +32,7 @@ const EmpleadosView = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4 bg-gray-200">
-        <h1 className="text-xl p-4">Empleados</h1>
+        <h1 className="font-bold text-xl bg-gray-200 p-4">Empleados</h1>
         <input type="text" placeholder="Buscar" class="input input-bordered w-24 md:w-100" />
         {<Link to="/crear" class="btn btn-success text-white">Agregar</Link>}
       </div>
