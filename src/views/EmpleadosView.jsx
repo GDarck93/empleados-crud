@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { readEmpleados } from "../services/empleadoService";
 import TableData from "../components/TableData";
+import { Link } from "react-router-dom";
 import formatFecha from "../services/formatFecha";
 
 const EmpleadosView = () => {
@@ -30,7 +31,13 @@ const EmpleadosView = () => {
   //Renderizado de listas con map
   return (
     <div>
-      <h1 className="font-bold text-xl bg-gray-200 p-4 text-center">Empleados</h1>
+      <div className="flex justify-between items-center mb-4 bg-gray-200">
+        <h1 className="text-xl p-4">Empleados</h1>
+        <input type="text" placeholder="Buscar" class="input input-bordered w-24 md:w-100" />
+        {<Link to="/crear" class="btn btn-success text-white">Agregar</Link>}
+      </div>
+
+
       {/*empleados && empleados.length > 0 ? (
         empleados.map((emp) => (
           <div key={emp.id}>
