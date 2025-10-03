@@ -55,6 +55,7 @@ const EmpleadoCreateView = () => {
     //Avatar
     const [avatar, setAvatar] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState(null);
+
     const handleAvatarChange = (e) => {
         const file = e.target.files[0];
         setAvatar(file);
@@ -77,6 +78,7 @@ const EmpleadoCreateView = () => {
         { name: "empleado_gerencia", label: "Gerencia", type: "text" },
         { name: "empleado_avatar", label: "Avatar", type: "file" },
     ];
+
     return (
         <div>
             <h1 className="font-bold text-xl bg-gray-200 p-4 text-center">Crear Empleado</h1>

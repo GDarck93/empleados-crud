@@ -16,6 +16,21 @@ const readEmpleados = async() => {
     }
 }
 
+const readEmpleadosById = async(id) => {
+    try {
+        const result = await axios.get(`https://68b75bdc73b3ec66cec47b86.mockapi.io/empleados/${id}`);
+        //console.log(result);
+        if(result.status === 200){
+            return result.data;
+        }else{
+            throw new Error("Error en la llamada a la API");
+        }
+    }catch(error){
+        //console.log(error)
+        throw error;
+    }
+}
+
 
 const createEmpleado = async(newEmpleado) => {
     try {
@@ -32,9 +47,9 @@ const createEmpleado = async(newEmpleado) => {
     }
 }
 
-const updateEmpleado = async(id, updatedEmpleado) => {
+const updateEmpleado = async(updatedEmpleado) => {
     try {
-        const result = await axios.put(`https://68b75bdc73b3ec66cec47b86.mockapi.io/empleados/${id}`, updatedEmpleado);
+        const result = await axios.put(`https://68b75bdc73b3ec66cec47b86.mockapi.io/empleados/${updatedEmpleado.id}`, updatedEmpleado);
         //console.log(result);
         if(result.status === 200){
             return result.data;
@@ -64,5 +79,8 @@ const deleteEmpleado = async(id) => {
 
 export{
     readEmpleados,
-    createEmpleado
+    createEmpleado,
+    readEmpleadosById,
+    updateEmpleado,
+    deleteEmpleado
 }

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { readEmpleados } from "../services/empleadoService";
+import { readEmpleados, deleteEmpleado } from "../services/empleadoService";
 import TableData from "../components/TableData";
 import { Link } from "react-router-dom";
+import { UserRoundPen, UserRoundMinus, UserRoundPlus } from "lucide-react";
 import formatFecha from "../services/formatFecha";
+import Swal from "sweetalert2";
 
 const EmpleadosView = () => {
   const [empleados, setEmpleados] = useState([]);
@@ -13,6 +15,60 @@ const EmpleadosView = () => {
     { name: "empleado_fnacimiento", label: "F.Nacimiento" },
     { name: "empleado_gerencia", label: "Gerencia" },
     { name: "empleado_avatar", label: "Avatar" },
+  ];
+
+
+  const handleDelete = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: '¿Estás seguro de elmininar al empleado?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminarlo',
+        cancelButtonText: 'Cancelar',
+        theme: 'dark'
+      });
+      if (result.isConfirmed) {
+        await deleteEmpleado(id);
+        Swal.fire({
+          icon: 'success',
+          title: 'Empleado eliminado correctamente',
+          showConfirmButton: false,
+          timer: 1500,
+          theme: 'white'
+        });
+        setEmpleados(empleados.filter(emp => emp.id !== id));//Actualizar la lista sin el empleado eliminado
+      }
+
+    }
+    catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al eliminar el empleado',
+        text: error.message,
+        confirmButtonText: 'Cerrar',
+        theme: 'dark'
+      });
+    }
+  }
+
+  const actions = [
+    {
+      name: "Editar",
+      content: (id) => <Link to={`/editar/${id}`} class="btn btn-sm"><UserRoundPen color="#ffcc00" /></Link>
+    },
+    {
+      name: "Eliminar",
+      content: (id) => (
+        <button className="btn btn-sm"
+          onClick={() => handleDelete(id)}>
+          <UserRoundMinus color="#ff0000" />
+        </button>)
+    }
   ];
 
   useEffect(() => {
@@ -34,7 +90,7 @@ const EmpleadosView = () => {
       <div className="flex justify-between items-center mb-4 bg-gray-200">
         <h1 className="font-bold text-xl bg-gray-200 p-4">Empleados</h1>
         <input type="text" placeholder="Buscar" class="input input-bordered w-24 md:w-100" />
-        {<Link to="/crear" class="btn btn-success text-white">Agregar</Link>}
+        {<Link to="/crear" class="btn btn-success text-white"><UserRoundPlus /></Link>}
       </div>
 
 
@@ -59,7 +115,8 @@ const EmpleadosView = () => {
       ) : (
         <p>No hay empleados registrados</p>
       )*/}
-      <TableData data={empleados} headers={headers} />
+
+      <TableData data={empleados} headers={headers} actions={actions} />
     </div>
   );
 };

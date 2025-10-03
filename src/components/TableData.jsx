@@ -5,7 +5,7 @@ import formatFecha from "../services/formatFecha";
  * @returns 
  */
 
-const TableData = ({ headers, data }) => {
+const TableData = ({ headers, data ,actions}) => {
     console.log("TableData", data);
     return (
         <table className="border-collapse border-t-2 w-full">
@@ -16,6 +16,9 @@ const TableData = ({ headers, data }) => {
                             {item.label}
                         </th>
                     ))}
+                    {actions && actions.length > 0 && (
+                        <th className="px-4 py-2 border border-slate-300 text-center bg-gray-200">Acciones</th>
+                    )}
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +38,13 @@ const TableData = ({ headers, data }) => {
                                 }
                             </td>
                         ))}
+                        <td className="border border-slate-300 text-center space-x-2">
+                            {actions.map((action, index) => (
+                                <span key={index}>
+                                    {action.content(item.id)}
+                                </span>
+                            ))}
+                        </td>
                     </tr>
                 )) : (
                     <tr>
