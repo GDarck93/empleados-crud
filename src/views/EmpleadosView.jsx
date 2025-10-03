@@ -29,7 +29,7 @@ const EmpleadosView = () => {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Sí, eliminarlo',
         cancelButtonText: 'Cancelar',
-        theme: 'dark'
+        theme: 'white'
       });
       if (result.isConfirmed) {
         await deleteEmpleado(id);
