@@ -3,6 +3,8 @@ import Input from "../components/Input";
 import { createEmpleado } from "../services/empleadoService";
 import Swal from "sweetalert2";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 //Objeto empleado
 const EmpleadoCreateView = () => {
@@ -69,6 +71,7 @@ const EmpleadoCreateView = () => {
             setAvatarPreview(null);
         }
     };
+    
 
     //Array de inputs
     const InputInfo = [
@@ -81,8 +84,19 @@ const EmpleadoCreateView = () => {
 
     return (
         <div>
-            <h1 className="font-bold text-xl bg-gray-200 p-4 text-center">Crear Empleado</h1>
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto my-4 p-4 border border-gray-300 rounded">
+
+            <div className="flex justify-between items-center mb-4 p-4 bg-base-200 rounded-lg shadow">
+                <div className="flex items-center gap-4">
+                    <Link to="/" className="btn btn-outline btn-sm flex items-center gap-2">
+                        <ArrowLeft size={16} />
+                        Volver
+                    </Link>
+                    <h1 className="font-bold text-xl text-base-content">Crear Empleado</h1>
+                </div>
+            </div>
+
+
+            <form onSubmit={handleSubmit} className="card bg-base-200 shadow max-w-md mx-auto p-6 space-y-4">
                 {InputInfo.map((input, index) => (
                     <Input
                         key={index}
@@ -95,27 +109,28 @@ const EmpleadoCreateView = () => {
                 ))}
 
                 {avatarPreview && (
-                    <div className="mb-3 p-2 flex flex-col items-center">
-                        <label className="block mb-1 font-semibold text-gray-700">Vista Previa:</label>
-                        <div className="w-32 h-32 rounded-full border-4 border-blue-200 shadow-lg bg-white flex items-center justify-center overflow-hidden">
-                            <img
-                                src={avatarPreview}
-                                alt="Vista Previa"
-                                className="w-full h-full object-cover"
-                            />
+                    <div className="form-control items-center">
+                        <label className="label">
+                            <span className="label-text font-semibold">Vista Previa:</span>
+                        </label>
+                        <div className="avatar">
+                            <div className="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <img src={avatarPreview} alt="Vista Previa" />
+                            </div>
                         </div>
                     </div>
                 )}
 
-                <div className="flex justify-end">
+                <div className="card-actions justify-end">
                     <button
                         type="submit"
-                        className="bg-blue-500 text-white px-6 py-2 rounded-lg font-semibold shadow-md hover:bg-blue-600 hover:scale-105 transition-all duration-200"
+                        className="btn btn-primary"
                     >
                         Guardar
                     </button>
                 </div>
             </form>
+
         </div>
     )
 }

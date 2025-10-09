@@ -59,16 +59,20 @@ const EmpleadosView = () => {
   const actions = [
     {
       name: "Editar",
-      content: (id) => <Link to={`/editar/${id}`} class="btn btn-sm"><UserRoundPen color="#ffcc00" /></Link>
+      content: (id) => (
+        <Link to={`/editar/${id}`} className="btn btn-sm btn-outline btn-warning">
+          <UserRoundPen />
+        </Link>
+      ),
     },
     {
       name: "Eliminar",
       content: (id) => (
-        <button className="btn btn-sm"
-          onClick={() => handleDelete(id)}>
-          <UserRoundMinus color="#ff0000" />
-        </button>)
-    }
+        <button className="btn btn-sm btn-outline btn-error" onClick={() => handleDelete(id)}>
+          <UserRoundMinus />
+        </button>
+      ),
+    },
   ];
 
   useEffect(() => {
@@ -87,11 +91,17 @@ const EmpleadosView = () => {
   //Renderizado de listas con map
   return (
     <div>
-      <div className="flex justify-between items-center mb-4 bg-gray-200">
-        <h1 className="font-bold text-xl bg-gray-200 p-4">Empleados</h1>
-        <input type="text" placeholder="Buscar" class="input input-bordered w-24 md:w-100" />
-        {<Link to="/crear" class="btn btn-success text-white"><UserRoundPlus /></Link>}
+
+      <div className="flex justify-between items-center mb-4 p-4 bg-base-200 rounded-lg shadow">
+        <h1 className="font-bold text-xl text-base-content">Empleados</h1>
+        <input type="text" placeholder="Buscar" className="input input-bordered w-24 md:w-64" />
+        <div className="tooltip" data-tip="Crear nuevo empleado">
+          <Link to="/crear" className="btn btn-success text-white btn-sm">
+            <UserRoundPlus />
+          </Link>
+        </div>
       </div>
+
 
 
       {/*empleados && empleados.length > 0 ? (
