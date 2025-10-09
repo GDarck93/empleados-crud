@@ -8,6 +8,15 @@ import Swal from "sweetalert2";
 
 const EmpleadosView = () => {
   const [empleados, setEmpleados] = useState([]);
+  const [empleadoFiltrado, setEmpleadoFiltrado] = useState([]);
+  const detectarNombre = (e) => {
+    const nombre = e.target.value;
+    setEmpleadoFiltrado(
+      empleados.filter((emp) =>
+        emp.empleado_nombre.toLowerCase().includes(nombre.toLowerCase())
+      )
+    );
+  }
 
   const headers = [
     { name: "empleado_nombre", label: "Nombres" },
@@ -17,7 +26,7 @@ const EmpleadosView = () => {
     { name: "empleado_avatar", label: "Avatar" },
   ];
 
-
+  //Eliminar empleado
   const handleDelete = async (id) => {
     try {
       const result = await Swal.fire({
@@ -40,7 +49,9 @@ const EmpleadosView = () => {
           timer: 1500,
           theme: 'white'
         });
-        setEmpleados(empleados.filter(emp => emp.id !== id));//Actualizar la lista sin el empleado eliminado
+        const actualizarLista = empleadoFiltrado.filter(emp => emp.id !== id);
+        setEmpleados(actualizarLista);//Actualizar la lista principal
+        setEmpleadoFiltrado(actualizarLista);//Actualizar la lista filtrada
       }
 
     }
@@ -56,6 +67,7 @@ const EmpleadosView = () => {
     }
   }
 
+  //Definir acciones para la tabla
   const actions = [
     {
       name: "Editar",
@@ -75,12 +87,14 @@ const EmpleadosView = () => {
     },
   ];
 
+  //Cargar empleados al iniciar el componente
   useEffect(() => {
     const getEmpleados = async () => {
       try {
         const empleadosObtained = await readEmpleados();
-        console.log(empleadosObtained);
+        //console.log(empleadosObtained);
         setEmpleados(empleadosObtained);
+        setEmpleadoFiltrado(empleadosObtained);
       } catch (error) {
         console.log(error);
       }
@@ -94,7 +108,7 @@ const EmpleadosView = () => {
 
       <div className="flex justify-between items-center mb-4 p-4 bg-base-200 rounded-lg shadow">
         <h1 className="font-bold text-xl text-base-content">Empleados</h1>
-        <input type="text" placeholder="Buscar" className="input input-bordered w-24 md:w-64" />
+        <input type="text" placeholder="Buscar" className="input input-bordered w-24 md:w-64" name="nombreBuscar" onChange={detectarNombre} />
         <div className="tooltip" data-tip="Crear nuevo empleado">
           <Link to="/crear" className="btn btn-success text-white btn-sm">
             <UserRoundPlus />
@@ -126,7 +140,7 @@ const EmpleadosView = () => {
         <p>No hay empleados registrados</p>
       )*/}
 
-      <TableData data={empleados} headers={headers} actions={actions} />
+      <TableData data={empleadoFiltrado} headers={headers} actions={actions} />
     </div>
   );
 };
